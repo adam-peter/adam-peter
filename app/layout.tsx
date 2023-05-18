@@ -1,6 +1,7 @@
 import "./globals.css";
-import { Josefin_Sans } from "next/font/google";
+import Navbar from "@/components/Navbar";
 
+import { Josefin_Sans } from "next/font/google";
 const josephin = Josefin_Sans({ subsets: ["latin"] });
 
 export const metadata = {
@@ -11,7 +12,12 @@ export const metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body className={"p-8 " + josephin.className}>{children}</body>
+      <body className={"p-6 " + josephin.className}>
+        <div className="h-full border border-white">
+          <Navbar />
+          {children}
+        </div>
+      </body>
     </html>
   );
 };
