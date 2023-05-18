@@ -5,11 +5,26 @@ import Cookies from "js-cookie";
 
 const Home = () => {
   const [visible, setVisible] = useState(false);
+  const [transition, setTransition] = useState(false);
 
   useEffect(() => {
-    const savedVisibleState = Cookies.get("visibleState");
-    savedVisibleState && setVisible(savedVisibleState === "true");
+    //the state of section visibility
+    const visibleState = Cookies.get("visibleState");
+    visibleState && setVisible(!!visibleState);
+
+    const transitionState = Cookies.get("transitionState");
+    transitionState && setTransition(!!transitionState);
+
+    return () => {
+      Cookies.set("transitionState", "false");
+    };
   }, []);
+
+  const handleToggleVisibility = () => {
+    Cookies.set("visibleState", String(!visible));
+    setTransition(!transition);
+    setVisible(!visible);
+  };
 
   return (
     <main className="flex h-5/6 flex-col justify-between">
@@ -17,22 +32,15 @@ const Home = () => {
       <section>
         <div className="flex h-1/6 items-center justify-center text-3xl font-light">
           <span className="text-slate-500">{"< "}</span>
-          <button
-            onClick={() => {
-              Cookies.set("visibleState", "true");
-              setVisible(true);
-            }}
-          >
-            &nbsp;who?&nbsp;
-          </button>
+          <button onClick={handleToggleVisibility}>&nbsp;who?&nbsp;</button>
           <span className="text-slate-500">{" />"}</span>
         </div>
 
         <div
           className={
-            "mt-20 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light opacity-0" +
+            "mt-20 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light transition-all duration-700 " +
             (visible ? "opacity-100" : "opacity-0") +
-            " transition-all duration-700"
+            (transition ? " transition-all duration-700" : "")
           }
         >
           <Link
