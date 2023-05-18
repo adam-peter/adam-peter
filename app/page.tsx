@@ -28,7 +28,7 @@ const Home = () => {
 
       <div
         className={
-          "mt-10 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light " +
+          "mt-10 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light opacity-0" +
           (visible ? "opacity-100" : "opacity-0") +
           " transition-all duration-700"
         }
