@@ -9,20 +9,12 @@ const Home = () => {
 
   useEffect(() => {
     //the state of section visibility
-    const visibleState = Cookies.get("visibleState");
-    visibleState && setVisible(!!visibleState);
-
-    const transitionState = Cookies.get("transitionState");
-    transitionState && setTransition(!!transitionState);
-
-    return () => {
-      Cookies.set("transitionState", "false");
-    };
+    setVisible(Cookies.get("visibleState") === "true");
   }, []);
 
   const handleToggleVisibility = () => {
     Cookies.set("visibleState", String(!visible));
-    setTransition(!transition);
+    setTransition(true);
     setVisible(!visible);
   };
 
@@ -38,7 +30,7 @@ const Home = () => {
 
         <div
           className={
-            "mt-20 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light transition-all duration-700 " +
+            "mt-20 flex h-2/6 flex-col items-center justify-center gap-[1px] text-3xl font-light " +
             (visible ? "opacity-100" : "opacity-0") +
             (transition ? " transition-all duration-700" : "")
           }
